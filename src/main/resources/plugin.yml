@@ -1,0 +1,10 @@
+name: ARG
+version: '${project.version}'
+main: arg.uottawa.arg.ARG
+api-version: 1.19
+authors: [ Dish ]
+description: The Eye Calls...
+commands:
+  argstick:
+    description: Give yourself the selection stick.
+    usage: /<command>
