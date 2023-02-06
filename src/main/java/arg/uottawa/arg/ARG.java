@@ -30,6 +30,8 @@ public final class ARG extends JavaPlugin implements Listener {
 
     public Firestore db;
     public static int[][] portal =  new int[12][3];
+    public static int[] chest = new int[3];
+    public static int currentEvent = 0;
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -68,6 +70,7 @@ public final class ARG extends JavaPlugin implements Listener {
 
         // Config setup
         String portalLoc = getConfig().getString("portal");
+        String chestLoc = getConfig().getString("chest");
 
         // Read portal location from config
         if (portalLoc != null && !portalLoc.equals("")) {
@@ -79,7 +82,16 @@ public final class ARG extends JavaPlugin implements Listener {
                 }
             }
 
-        } else {
+        }
+
+        if (chestLoc != null && !chestLoc.equals("")) {
+            String[] strArr = chestLoc.split("\\|");
+            for (int i = 0; i < strArr.length; i++) {
+                chest[i] = Integer.parseInt(strArr[i]);
+            }
+        }
+
+        if (!(portalLoc != null && !portalLoc.equals("")) && !(chestLoc != null && !chestLoc.equals(""))) {
             // Create default config
             getConfig().options().copyDefaults();
             saveDefaultConfig();
@@ -94,7 +106,7 @@ public final class ARG extends JavaPlugin implements Listener {
         getLogger().log(Level.INFO, "Disabled!");
     }
 
-    private void placeEyes(int num) {
+    private void sendKeyEvent(int num) {
         // Create event and run task synchronously since db listener is async
         KeyFoundEvent kfe = new KeyFoundEvent(num);
         Bukkit.getScheduler().runTask(this, () -> {
@@ -118,11 +130,14 @@ public final class ARG extends JavaPlugin implements Listener {
                         }
                         // Check if there has been a change in the document
                         if (value != null && value.exists()) {
-                            // Makes first snapshot is loaded before making any changes
-                            if (check) {
 
-                                // Fill portal
-                                placeEyes(Math.toIntExact((Long) value.get("event")));
+                            currentEvent = Math.toIntExact((Long) value.get("event"));
+
+                            // Fill portal and set audio diary
+                            sendKeyEvent(Math.toIntExact((Long) value.get("event")));
+
+                            // Makes first snapshot is loaded before announcing any changes
+                            if (check) {
 
                                 // Check if ARG has been solved
                                 if ((Long) value.get("event") == 13) {
