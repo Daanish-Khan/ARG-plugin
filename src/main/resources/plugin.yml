@@ -3,6 +3,7 @@ version: '${project.version}'
 main: arg.uottawa.arg.ARG
 api-version: 1.19
 authors: [ Dish ]
+depend: [UltimateAdvancementAPI]
 description: The Eye Calls...
 commands:
   argstick:
