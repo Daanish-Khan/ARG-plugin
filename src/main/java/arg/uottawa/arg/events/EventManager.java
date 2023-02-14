@@ -4,41 +4,41 @@ import arg.uottawa.arg.ARG;
 import arg.uottawa.arg.advancements.FallAdvancement;
 import arg.uottawa.arg.commands.CommandManager;
 import arg.uottawa.arg.items.ItemManager;
-import com.fren_gor.ultimateAdvancementAPI.advancement.Advancement;
 import com.fren_gor.ultimateAdvancementAPI.events.PlayerLoadingCompletedEvent;
 import com.fren_gor.ultimateAdvancementAPI.util.AdvancementKey;
 import org.bukkit.*;
 import org.bukkit.block.*;
 import org.bukkit.block.data.Rotatable;
 import org.bukkit.block.data.type.EndPortalFrame;
-import org.bukkit.block.data.type.WallSign;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
-import org.bukkit.entity.EnderSignal;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.PortalCreateEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class EventManager implements Listener {
 
 
     private boolean state = false;
+    private ArrayList<UUID> puzzle8 = new ArrayList<UUID>();
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
 
@@ -117,6 +117,11 @@ public class EventManager implements Listener {
             if (Objects.equals(event.getItem().getItemMeta(), ItemManager.createStick().getItemMeta())) {
                 event.setCancelled(true);
             }
+        } else {
+            if (event.getClickedBlock().isBlockPowered() && event.getClickedBlock().getType() == Material.ENDER_CHEST && ARG.currentEvent == 8 && !puzzle8.contains(event.getPlayer().getUniqueId())) {
+                event.getPlayer().getEnderChest().addItem(ItemManager.createDisc(8));
+                puzzle8.add(event.getPlayer().getUniqueId());
+            }
         }
     }
 
@@ -127,6 +132,9 @@ public class EventManager implements Listener {
                 if (event.getClickedInventory().getLocation().equals(new Location(Bukkit.getWorlds().get(0), ARG.chest[0], ARG.chest[1], ARG.chest[2]))) {
                     if (event.getCurrentItem().equals(ItemManager.createDisc(ARG.currentEvent))) {
                         event.getWhoClicked().getInventory().addItem(ItemManager.createDisc(ARG.currentEvent));
+                        event.setCancelled(true);
+                    } else if (event.getCurrentItem().equals(ItemManager.createPuzzle8Book())) {
+                        event.getWhoClicked().getInventory().addItem(ItemManager.createPuzzle8Book());
                         event.setCancelled(true);
                     }
                 }
@@ -146,12 +154,12 @@ public class EventManager implements Listener {
         }
 
         // Update audio diary
-        if (event.getEventNum() != 8) {
-            Chest c = (Chest) Bukkit.getWorlds().get(0).getBlockAt(ARG.chest[0], ARG.chest[1], ARG.chest[2]).getState();
-            c.getBlockInventory().clear();
-
+        Chest c = (Chest) Bukkit.getWorlds().get(0).getBlockAt(ARG.chest[0], ARG.chest[1], ARG.chest[2]).getState();
+        c.getBlockInventory().clear();
+        if (event.getEventNum() == 8) {
+            c.getBlockInventory().setItem(13, ItemManager.createPuzzle8Book());
+        } else {
             c.getBlockInventory().setItem(13, ItemManager.createDisc(ARG.currentEvent));
-
         }
 
         // ------------ ARG PUZZLE STUFF ----------------
@@ -430,8 +438,55 @@ public class EventManager implements Listener {
             case 9:
                 break;
             case 10:
+                ShapedRecipe leftEyeRecipe = new ShapedRecipe(new NamespacedKey(Bukkit.getPluginManager().getPlugin("ARG"), "lefteye"), ItemManager.createLeftEye());
+                leftEyeRecipe.shape("XXX", "XXX", "XXX");
+                leftEyeRecipe.setIngredient('X', new RecipeChoice.ExactChoice(ItemManager.createPuzzle10Drop()));
+                Bukkit.addRecipe(leftEyeRecipe);
                 break;
             case 11:
+                ShapedRecipe rightEyeRecipe = new ShapedRecipe(new NamespacedKey(Bukkit.getPluginManager().getPlugin("ARG"), "righteye"), ItemManager.createRightEye());
+                rightEyeRecipe.shape("BBB", "OGO", "BBB");
+                rightEyeRecipe.setIngredient('B', Material.BLAZE_POWDER);
+                rightEyeRecipe.setIngredient('O', Material.OBSIDIAN);
+                rightEyeRecipe.setIngredient('G', Material.GLASS);
+                Bukkit.addRecipe(rightEyeRecipe);
+
+                ShapedRecipe headRecipe = new ShapedRecipe(new NamespacedKey(Bukkit.getPluginManager().getPlugin("ARG"), "head"), ItemManager.createDragonHead());
+                headRecipe.shape("OOO", "LOR", "OOO");
+                headRecipe.setIngredient('O', Material.OBSIDIAN);
+                headRecipe.setIngredient('L', new RecipeChoice.ExactChoice(ItemManager.createLeftEye()));
+                headRecipe.setIngredient('R', new RecipeChoice.ExactChoice(ItemManager.createRightEye()));
+                Bukkit.addRecipe(headRecipe);
+
+                w.spawn(new Location(w, 592, 66, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
+                w.spawn(new Location(w, 591, 66, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
+                w.spawn(new Location(w, 590, 66, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
+
+                w.spawn(new Location(w, 592, 65, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.ENDER_EYE));
+                });
+                w.spawn(new Location(w, 591, 65, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
+                w.spawn(new Location(w, 590, 65, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.ENDER_EYE));
+                });
+
+                w.spawn(new Location(w, 592, 64, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
+                w.spawn(new Location(w, 591, 64, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
+                w.spawn(new Location(w, 590, 64, -706), GlowItemFrame.class, itemFrame -> {
+                    itemFrame.setItem(new ItemStack(Material.OBSIDIAN));
+                });
                 break;
             case 12:
                 break;
@@ -476,7 +531,7 @@ public class EventManager implements Listener {
     @EventHandler
     public void onPrepareItemEnchantEvent (PrepareItemEnchantEvent event) {
 
-            if (event.getItem().getType() == Material.ENDER_EYE && event.getItem().getEnchantments().size() == 0) {
+            if (event.getItem().getType() == Material.ENDER_EYE && event.getItem().getEnchantments().size() == 0 && ARG.currentEvent == 5) {
                 event.setCancelled(false);
                 event.getOffers()[0] = new EnchantmentOffer(Enchantment.PROTECTION_ENVIRONMENTAL, 1, 2);
                 event.getOffers()[1] = new EnchantmentOffer(Enchantment.LUCK, 6, 5);
@@ -490,8 +545,8 @@ public class EventManager implements Listener {
                         ItemMeta meta = event.getItem().getItemMeta();
                         List<String> lore = new ArrayList<>();
                         lore.add("4c4f4f4b20464f522054484520455945");
-                        lore.add("01000110 01010011 01010011");
-                        lore.add("00110001 00110000 00110000 00110111");
+                        lore.add("01000110 01010011 01010011"); // FSS
+                        lore.add("00110001 00110000 00110000 00110111"); // 1007
 
                         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         meta.setLore(lore);
@@ -519,6 +574,54 @@ public class EventManager implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onMobDeathEvent(EntityDeathEvent event) {
+
+        // Pain
+        if ((event.getEntity() instanceof Blaze
+            || event.getEntity() instanceof Creeper
+            || event.getEntity() instanceof Drowned
+            || event.getEntity() instanceof Husk
+            || event.getEntity() instanceof MagmaCube
+            || event.getEntity() instanceof Phantom
+            || event.getEntity() instanceof PiglinAbstract
+            || event.getEntity() instanceof Pillager
+            || event.getEntity() instanceof Ravager
+            || event.getEntity() instanceof Skeleton
+            || event.getEntity() instanceof Slime
+            || event.getEntity() instanceof Spider
+            || event.getEntity() instanceof CaveSpider
+            || event.getEntity() instanceof Stray
+            || event.getEntity() instanceof Vex
+            || event.getEntity() instanceof Vindicator
+            || event.getEntity() instanceof Witch
+            || event.getEntity() instanceof WitherSkeleton
+            || event.getEntity() instanceof Zoglin
+            || event.getEntity() instanceof Zombie
+            || event.getEntity() instanceof ZombieVillager) && ARG.currentEvent == 10 && event.getEntity().getKiller() != null) {
+            event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), ItemManager.createPuzzle10Drop());
+        }
+    }
+
+    @EventHandler
+    public void prepareItemCraftEvent(PrepareItemCraftEvent event) {
+        if (event.getInventory().containsAtLeast(ItemManager.createPuzzle10Drop(), 1) && event.getRecipe() != null) {
+            if (event.getRecipe().getResult().getType() == Material.BEACON) {
+                event.getInventory().setResult(new ItemStack(Material.AIR));
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockPhysicsEvent(BlockPhysicsEvent event) {
+        if (event.getSourceBlock().getType() != Material.ENDER_CHEST || !event.getSourceBlock().isBlockPowered() || ARG.currentEvent != 8 || event.getChangedType() != Material.REDSTONE_WIRE) {
+            return;
+        }
+
+        Bukkit.getWorlds().get(0).playSound(event.getSourceBlock().getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1, 1);
+
     }
 
 }

@@ -4,14 +4,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class ItemManager {
 
@@ -91,6 +94,118 @@ public class ItemManager {
         meta.setTitle("████");
         meta.setAuthor("████");
         meta.setPages(pages);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack createPuzzle8Book() {
+        ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta meta = (BookMeta) item.getItemMeta();
+
+        List<String> pages = new ArrayList<String>();
+        pages.add("Date 12██: \n" +
+                "\n" +
+                "Test-273A: Redstone lamp responds to eye, producing s████t by powering it with a torch would.\n" +
+                "\n" +
+                "Test-273B: Piston also responds to eye, ████ fully and retr████ing when the eye has been moved away.\n");
+
+        pages.add("Date ██3█:\n" +
+                "\n" +
+                "Test-89██: Power originating from eye does not fade after a set dista██e when connecting the eye to a re████ne line.\n" +
+                "\n" +
+                "Test-8988: Attaching ████ to a chest all████s for multi████sional storage. \n");
+
+        pages.add("████: Using ████ chest as a power source is possible. More tests needed.\n" +
+                "\n" +
+                "████-89██: Redstone line extended by 1███0 blocks. Measured level at eye: 10█L. Measured level at end of line: 10P█.\n");
+
+        pages.add("Date ████:\n" +
+                "\n" +
+                "████: R████ted use of the eye seems to be depleting the power output. Re████ding immed████ c█ase of use.\n");
+
+        meta.setTitle("████");
+        meta.setAuthor("████");
+        meta.setPages(pages);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack createPuzzle10Drop() {
+        ItemStack item = new ItemStack(Material.NETHER_STAR);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("Fragment of ███");
+
+        List<String> lore = new ArrayList<>();
+        lore.add("The Original was shattered into 9");
+        lore.add("pieces in the age of old.");
+        lore.add("");
+        lore.add("You hold only a fragment of what");
+        lore.add("it used to be...");
+        meta.setLore(lore);
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+
+        return item;
+
+    }
+
+    public static ItemStack createLeftEye() {
+        ItemStack item = new ItemStack(Material.ENDER_EYE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("Left Eye of █████");
+
+        List<String> lore = new ArrayList<>();
+        lore.add("The left eye of a dragon.");
+        lore.add("You can feel its power");
+        lore.add("flowing through you.");
+        lore.add("");
+        lore.add("4652454557494C4C");
+
+        meta.setLore(lore);
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack createRightEye() {
+        ItemStack item = new ItemStack(Material.ENDER_EYE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("Right Eye of █████");
+
+        List<String> lore = new ArrayList<>();
+        lore.add("A mythical dragon, reduced to ashes.");
+        lore.add("All but its eye.");
+        lore.add("");
+        lore.add("592 63 -709");
+
+        meta.setLore(lore);
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack createDragonHead() {
+        ItemStack item = new ItemStack(Material.DRAGON_HEAD);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("Head of █████");
+
+        List<String> lore = new ArrayList<>();
+        lore.add("The head of an elder dragon.");
+        lore.add("Upon touching it, you can");
+        lore.add("feel the ever-lasting grief");
+        lore.add("of a mother whose lost their child.");
+        lore.add("");
+        lore.add("LOOSENEDCHAINS");
+
+        meta.setLore(lore);
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
 
         return item;
