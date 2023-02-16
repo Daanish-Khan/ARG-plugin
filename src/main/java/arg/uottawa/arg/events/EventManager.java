@@ -118,9 +118,11 @@ public class EventManager implements Listener {
                 event.setCancelled(true);
             }
         } else {
-            if (event.getClickedBlock().isBlockPowered() && event.getClickedBlock().getType() == Material.ENDER_CHEST && ARG.currentEvent == 8 && !puzzle8.contains(event.getPlayer().getUniqueId())) {
-                event.getPlayer().getEnderChest().addItem(ItemManager.createDisc(8));
-                puzzle8.add(event.getPlayer().getUniqueId());
+            if (event.getClickedBlock() != null) {
+                if (event.getClickedBlock().isBlockPowered() && event.getClickedBlock().getType() == Material.ENDER_CHEST && ARG.currentEvent == 8 && !puzzle8.contains(event.getPlayer().getUniqueId())) {
+                    event.getPlayer().getEnderChest().addItem(ItemManager.createDisc(8));
+                    puzzle8.add(event.getPlayer().getUniqueId());
+                }
             }
         }
     }
@@ -489,6 +491,13 @@ public class EventManager implements Listener {
                 });
                 break;
             case 12:
+                ShapedRecipe QRRecipe = new ShapedRecipe(new NamespacedKey(Bukkit.getPluginManager().getPlugin("ARG"), "QR"), ItemManager.createMap());
+                QRRecipe.shape("LR");
+                QRRecipe.setIngredient('L', new RecipeChoice.ExactChoice(ItemManager.createWitherDrop()));
+                QRRecipe.setIngredient('R', new RecipeChoice.ExactChoice(ItemManager.createWardenDrop()));
+                Bukkit.addRecipe(QRRecipe);
+
+
                 break;
         }
     }
@@ -602,6 +611,14 @@ public class EventManager implements Listener {
             || event.getEntity() instanceof Zombie
             || event.getEntity() instanceof ZombieVillager) && ARG.currentEvent == 10 && event.getEntity().getKiller() != null) {
             event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), ItemManager.createPuzzle10Drop());
+        }
+
+        if (event.getEntity() instanceof Wither && ARG.currentEvent == 12) {
+            event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), ItemManager.createWitherDrop());
+        }
+
+        if (event.getEntity() instanceof Warden && ARG.currentEvent == 12) {
+            event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), ItemManager.createWardenDrop());
         }
     }
 

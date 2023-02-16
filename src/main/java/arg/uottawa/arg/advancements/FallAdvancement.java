@@ -1,5 +1,6 @@
 package arg.uottawa.arg.advancements;
 
+import arg.uottawa.arg.ARG;
 import arg.uottawa.arg.items.ItemManager;
 import com.fren_gor.ultimateAdvancementAPI.advancement.Advancement;
 import com.fren_gor.ultimateAdvancementAPI.advancement.BaseAdvancement;
@@ -19,7 +20,7 @@ public class FallAdvancement extends BaseAdvancement {
         super(key, display, parent);
 
         registerEvent(EntityDamageEvent.class, e-> {
-            if (e.getEntity() instanceof Player) {
+            if (e.getEntity() instanceof Player && ARG.currentEvent == 7) {
                 Player p = (Player) e.getEntity();
                 if (isVisible(p) && e.getCause() == EntityDamageEvent.DamageCause.FALL && e.getFinalDamage() >= 20 ) {
                     grant(p);

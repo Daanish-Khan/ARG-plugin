@@ -1,5 +1,7 @@
 package arg.uottawa.arg.items;
 
+import arg.uottawa.arg.map.MapGenerator;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -9,6 +11,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.MapMeta;
+import org.bukkit.map.MapView;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -136,7 +140,7 @@ public class ItemManager {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("Fragment of ███");
 
-        List<String> lore = new ArrayList<>();
+        List<String> lore = new ArrayList<String>();
         lore.add("The Original was shattered into 9");
         lore.add("pieces in the age of old.");
         lore.add("");
@@ -156,7 +160,7 @@ public class ItemManager {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("Left Eye of █████");
 
-        List<String> lore = new ArrayList<>();
+        List<String> lore = new ArrayList<String>();
         lore.add("The left eye of a dragon.");
         lore.add("You can feel its power");
         lore.add("flowing through you.");
@@ -176,7 +180,7 @@ public class ItemManager {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("Right Eye of █████");
 
-        List<String> lore = new ArrayList<>();
+        List<String> lore = new ArrayList<String>();
         lore.add("A mythical dragon, reduced to ashes.");
         lore.add("All but its eye.");
         lore.add("");
@@ -195,7 +199,7 @@ public class ItemManager {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("Head of █████");
 
-        List<String> lore = new ArrayList<>();
+        List<String> lore = new ArrayList<String>();
         lore.add("The head of an elder dragon.");
         lore.add("Upon touching it, you can");
         lore.add("feel the ever-lasting grief");
@@ -204,6 +208,71 @@ public class ItemManager {
         lore.add("LOOSENEDCHAINS");
 
         meta.setLore(lore);
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack createMap() {
+        ItemStack item = new ItemStack(Material.FILLED_MAP, 1);
+        MapMeta meta = (MapMeta) item.getItemMeta();
+
+        meta.setDisplayName("Scripture of Old");
+
+        MapView mapView = Bukkit.createMap(Bukkit.getWorlds().get(0));
+
+        mapView.getRenderers().clear();
+        mapView.addRenderer(new MapGenerator());
+
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        meta.setMapView(mapView);
+        item.setItemMeta(meta);
+
+        return item;
+
+    }
+
+    public static ItemStack createWitherDrop() {
+        ItemStack item = new ItemStack(Material.PAPER, 1);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.setDisplayName("Torn Scripture");
+
+        List<String> lore = new ArrayList<String>();
+        lore.add("A piece of scripture that");
+        lore.add("seems to be torn in half.");
+        lore.add("");
+        lore.add("By the way its torn, you");
+        lore.add("can tell you have the left piece.");
+
+        meta.setLore(lore);
+
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack createWardenDrop() {
+        ItemStack item = new ItemStack(Material.PAPER, 1);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.setDisplayName("Torn Scripture");
+
+        List<String> lore = new ArrayList<String>();
+        lore.add("A piece of scripture that");
+        lore.add("seems to be torn in half.");
+        lore.add("");
+        lore.add("By the way its torn, you");
+        lore.add("can tell you have the right piece.");
+
+        meta.setLore(lore);
+
         meta.addEnchant(Enchantment.LUCK, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
