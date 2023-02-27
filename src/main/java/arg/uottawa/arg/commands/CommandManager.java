@@ -4,6 +4,8 @@ import arg.uottawa.arg.ARG;
 import arg.uottawa.arg.items.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Chest;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,6 +27,27 @@ public class CommandManager implements CommandExecutor {
         }
 
         Player p = (Player) sender;
+
+        if (command.getName().equalsIgnoreCase("startEvent")) {
+
+            if (ARG.currentEvent == 13) {
+                World w = Bukkit.getWorlds().get(0);
+                w.getBlockAt(-95, 56, -144).setType(Material.END_PORTAL);
+                w.getBlockAt(-95, 56, -143).setType(Material.END_PORTAL);
+                w.getBlockAt(-95, 56, -142).setType(Material.END_PORTAL);
+
+                w.getBlockAt(-96, 56, -144).setType(Material.END_PORTAL);
+                w.getBlockAt(-96, 56, -143).setType(Material.END_PORTAL);
+                w.getBlockAt(-96, 56, -142).setType(Material.END_PORTAL);
+
+                w.getBlockAt(-97, 56, -144).setType(Material.END_PORTAL);
+                w.getBlockAt(-97, 56, -143).setType(Material.END_PORTAL);
+                w.getBlockAt(-97, 56, -142).setType(Material.END_PORTAL);
+            }
+
+        }
+
+
         if (command.getName().equalsIgnoreCase("argstick")) {
 
             if (args.length == 0) {

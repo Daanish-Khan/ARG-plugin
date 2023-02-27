@@ -8,4 +8,11 @@ description: The Eye Calls...
 commands:
   argstick:
     description: Give yourself the selection stick.
+    permission: arg.owner
+    permission-message: You don't have permission to execute that command!
+    usage: /<command>
+  startEvent:
+    description: Starts the event.
+    permission: arg.owner
+    permission-message: You don't have permission to execute that command!
     usage: /<command>

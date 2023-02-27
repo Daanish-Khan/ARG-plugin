@@ -67,6 +67,7 @@ public final class ARG extends JavaPlugin implements Listener {
         // Command Registration
         getLogger().log(Level.INFO, "Registering commands...");
         getCommand("argstick").setExecutor(new CommandManager());
+        getCommand("startEvent").setExecutor(new CommandManager());
 
         // Config setup
         String portalLoc = getConfig().getString("portal");

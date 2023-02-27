@@ -175,7 +175,7 @@ public class EventManager implements Listener {
 
         // 4
         w.getBlockAt(-366, 66, -107).setType(Material.AIR);
-        w.getBlockAt(-728, 65, -909).setType(Material.AIR);
+        w.getBlockAt(-728, 65, 909).setType(Material.AIR);
         w.getBlockAt(-231, 135, -819).setType(Material.AIR);
 
         // 6
@@ -250,11 +250,11 @@ public class EventManager implements Listener {
                 break;
             case 4:
                 w.getBlockAt(-366, 66, -107).setType(Material.LECTERN);
-                w.getBlockAt(-728, 65, -909).setType(Material.LECTERN);
+                w.getBlockAt(-728, 65, 909).setType(Material.LECTERN);
                 w.getBlockAt(-231, 135, -819).setType(Material.LECTERN);
                 ((Lectern) w.getBlockAt(-366, 66, -107).getState()).getInventory()
                         .setItem(0, ItemManager.createPuzzle4Books(1));
-                ((Lectern) w.getBlockAt(-728, 65, -909).getState()).getInventory()
+                ((Lectern) w.getBlockAt(-728, 65, 909).getState()).getInventory()
                         .setItem(0, ItemManager.createPuzzle4Books(2));
                 ((Lectern) w.getBlockAt(-231, 135, -819).getState()).getInventory()
                         .setItem(0, ItemManager.createPuzzle4Books(3));
@@ -504,8 +504,14 @@ public class EventManager implements Listener {
 
     @EventHandler
     public void onPlayerEnterPortalEvent(PlayerPortalEvent event) {
+
         if (!event.getTo().getWorld().getName().contains("nether") && !event.getFrom().getWorld().getName().contains("nether") && !event.getFrom().getWorld().getName().contains("binder")) {
-            event.setTo(new Location(Bukkit.getWorld("em_binder_of_worlds"), 43, 65, 0));
+            if (ARG.currentEvent != 13) {
+                event.getPlayer().sendMessage(ChatColor.RED + "Due to a rogue wormhole, you have been cast out of His dimension...");
+                event.setTo(Bukkit.getWorlds().get(0).getSpawnLocation());
+            } else {
+                event.setTo(new Location(Bukkit.getWorld("em_binder_of_worlds"), 43, 65, 0));
+            }
         }
     }
 
@@ -554,8 +560,11 @@ public class EventManager implements Listener {
                         ItemMeta meta = event.getItem().getItemMeta();
                         List<String> lore = new ArrayList<>();
                         lore.add("4c4f4f4b20464f522054484520455945");
-                        lore.add("01000110 01010011 01010011"); // FSS
-                        lore.add("00110001 00110000 00110000 00110111"); // 1007
+                        lore.add("");
+                        lore.add("01010101 01000011 01010101"); // UCU
+                        lore.add("01010100 01000101 01010010");
+                        lore.add("01001101 01001001 01001110");
+                        lore.add("01010101 01010011"); // TERMINUS
 
                         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         meta.setLore(lore);
