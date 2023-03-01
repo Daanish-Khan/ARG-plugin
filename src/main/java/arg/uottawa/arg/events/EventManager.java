@@ -275,7 +275,7 @@ public class EventManager implements Listener {
                 Sign s = (Sign) w.getBlockAt(-204, 63, -378).getState();
                 s.setLine(0, "1");
                 s.setLine(1, "81 65 -640");
-                s.setLine(3, ChatColor.RED + "WATCH");
+                s.setLine(3, ChatColor.RED + "You" + ChatColor.WHITE + "Tube");
                 s.setGlowingText(true);
                 s.setColor(DyeColor.BLACK);
                 s.update();
@@ -315,7 +315,7 @@ public class EventManager implements Listener {
                 Sign s2 = (Sign) w.getBlockAt(94, 65, -640).getState();
                 s2.setLine(0, "2");
                 s2.setLine(1, "-430 79 -837");
-                s2.setLine(3, ChatColor.RED + "WATCH");
+                s2.setLine(3, ChatColor.RED + "You" + ChatColor.WHITE + "Tube");
                 s2.setGlowingText(true);
                 s2.setColor(DyeColor.BLACK);
                 Rotatable dir = (Rotatable) s2.getBlockData();
@@ -353,7 +353,7 @@ public class EventManager implements Listener {
                 Sign s3 = (Sign) w.getBlockAt(-430, 77, -836).getState();
                 s3.setLine(0, "3");
                 s3.setLine(1, "-155 65 230");
-                s3.setLine(3, ChatColor.RED + "WATCH");
+                s3.setLine(3, ChatColor.RED + "You" + ChatColor.WHITE + "Tube");
                 s3.setGlowingText(true);
                 s3.setColor(DyeColor.BLACK);
                 s3.update();
@@ -398,7 +398,7 @@ public class EventManager implements Listener {
                 Sign s4 = (Sign) w.getBlockAt(-154, 63, 230).getState();
                 s4.setLine(0, "4");
                 s4.setLine(1, "-204 65 -375");
-                s4.setLine(3, ChatColor.RED + "WATCH");
+                s4.setLine(3, ChatColor.RED + "You" + ChatColor.WHITE + "Tube");
                 s4.setGlowingText(true);
                 s4.setColor(DyeColor.BLACK);
                 Rotatable dir2 = (Rotatable) s4.getBlockData();
