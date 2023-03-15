@@ -100,7 +100,7 @@ public final class ARG extends JavaPlugin implements Listener {
 
         // Add advancements
         api = UltimateAdvancementAPI.getInstance(this);
-        advTab = api.createAdvancementTab("argAdv");
+        advTab = api.createAdvancementTab("argadv");
         AdvancementDisplay rootDisplay = new AdvancementDisplay(Material.ENDER_EYE, "...", AdvancementFrameType.TASK, true, true, 0, 0, "It beckons...");
         root = new RootAdvancement(advTab, "root", rootDisplay, "textures/block/end_stone_bricks.png");
         FallAdvancement fa = new FallAdvancement("fall", new AdvancementDisplay(Material.ELYTRA, "The taller they stand...", AdvancementFrameType.CHALLENGE, true, true, 1.5f, 0, "The harder they fall."), root);
