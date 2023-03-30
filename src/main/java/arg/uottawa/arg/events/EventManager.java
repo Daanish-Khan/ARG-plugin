@@ -583,12 +583,12 @@ public class EventManager implements Listener {
     @EventHandler
     public void onRespawnEvent(PlayerRespawnEvent event) {
         if (ARG.currentEvent == 7) {
-            if (ARG.advTab.getAdvancement(AdvancementKey.fromString("...:fall")).isGranted(event.getPlayer())) {
-                if (!((FallAdvancement) ARG.advTab.getAdvancement(AdvancementKey.fromString("...:fall"))).hasRespawned(event.getPlayer())) {
+            if (ARG.advTab.getAdvancement(AdvancementKey.fromString("argadvancement:fall")).isGranted(event.getPlayer())) {
+                if (!((FallAdvancement) ARG.advTab.getAdvancement(AdvancementKey.fromString("argadvancement:fall"))).hasRespawned(event.getPlayer())) {
                     event.getPlayer().sendMessage(ChatColor.DARK_PURPLE + "You find a mysterious book where you fell...");
                     event.getPlayer().playSound(event.getRespawnLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 2, 1);
                     event.getPlayer().getInventory().addItem(ItemManager.createPuzzle7Book());
-                    ((FallAdvancement) ARG.advTab.getAdvancement(AdvancementKey.fromString("...:fall"))).addRespawned(event.getPlayer());
+                    ((FallAdvancement) ARG.advTab.getAdvancement(AdvancementKey.fromString("argadvancement:fall"))).addRespawned(event.getPlayer());
                 }
             }
         }
