@@ -132,14 +132,28 @@ public class EventManager implements Listener {
         if (event.getClickedInventory() != null) {
             if (event.getClickedInventory().getHolder() instanceof Chest) {
                 if (event.getClickedInventory().getLocation().equals(new Location(Bukkit.getWorlds().get(0), ARG.chest[0], ARG.chest[1], ARG.chest[2]))) {
-                    if (event.getCurrentItem().equals(ItemManager.createDisc(ARG.currentEvent))) {
-                        event.getWhoClicked().getInventory().addItem(ItemManager.createDisc(ARG.currentEvent));
+                    if (!event.getAction().toString().contains("PICKUP") && !event.getAction().toString().contains("SWAP")) {
                         event.setCancelled(true);
-                    } else if (event.getCurrentItem().equals(ItemManager.createPuzzle8Book())) {
-                        event.getWhoClicked().getInventory().addItem(ItemManager.createPuzzle8Book());
+                    } else {
+                        if (event.getCurrentItem().equals(ItemManager.createDisc(ARG.currentEvent))) {
+                            event.getWhoClicked().getInventory().addItem(ItemManager.createDisc(ARG.currentEvent));
+                            event.setCancelled(true);
+                        } else if (event.getCurrentItem().equals(ItemManager.createPuzzle8Book())) {
+                            event.getWhoClicked().getInventory().addItem(ItemManager.createPuzzle8Book());
+                            event.setCancelled(true);
+                        }
+                    }
+                } else if (event.getClickedInventory().getLocation().equals(ARG.chestLoc)) {
+                    if (!event.getAction().toString().contains("PICKUP") && !event.getAction().toString().contains("SWAP")) {
+                        event.setCancelled(true);
+                    } else {
+                        event.getWhoClicked().getInventory().addItem(event.getCurrentItem());
                         event.setCancelled(true);
                     }
+
                 }
+
+
 
             }
         }
@@ -497,7 +511,6 @@ public class EventManager implements Listener {
                 QRRecipe.setIngredient('R', new RecipeChoice.ExactChoice(ItemManager.createWardenDrop()));
                 Bukkit.addRecipe(QRRecipe);
 
-
                 break;
         }
     }
@@ -506,9 +519,13 @@ public class EventManager implements Listener {
     public void onPlayerEnterPortalEvent(PlayerPortalEvent event) {
 
         if (!event.getTo().getWorld().getName().contains("nether") && !event.getFrom().getWorld().getName().contains("nether") && !event.getFrom().getWorld().getName().contains("binder")) {
-            if (ARG.currentEvent != 13) {
-                event.getPlayer().sendMessage(ChatColor.RED + "Due to a rogue wormhole, you have been cast out of His dimension...");
-                event.setTo(Bukkit.getWorlds().get(0).getSpawnLocation());
+            if (!ARG.startEvent) {
+                if (ARG.currentEvent != 13) {
+                    event.getPlayer().sendMessage(ChatColor.RED + "Due to a rogue wormhole, you have been cast out of His dimension...");
+                    event.setTo(Bukkit.getWorlds().get(0).getSpawnLocation());
+                } else {
+                    event.setTo(new Location(Bukkit.getWorld("em_binder_of_worlds"), 43, 65, 0));
+                }
             } else {
                 event.setTo(new Location(Bukkit.getWorld("em_binder_of_worlds"), 43, 65, 0));
             }
