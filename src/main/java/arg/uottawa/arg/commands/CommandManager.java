@@ -91,17 +91,51 @@ public class CommandManager implements CommandExecutor {
                             Chest c = (Chest) chest.getState();
                             c.getBlockInventory().setItem(4, new ItemStack(Material.GOLDEN_APPLE, 64));
 
-                            c.getBlockInventory().setItem(11, new ItemStack(Material.NETHERITE_HELMET));
-                            c.getBlockInventory().setItem(12, new ItemStack(Material.NETHERITE_CHESTPLATE));
-                            c.getBlockInventory().setItem(13, new ItemStack(Material.NETHERITE_LEGGINGS));
-                            c.getBlockInventory().setItem(14, new ItemStack(Material.NETHERITE_BOOTS));
-                            c.getBlockInventory().setItem(15, new ItemStack(Material.NETHERITE_SWORD));
+                            ItemStack helm = new ItemStack (Material.NETHERITE_HELMET);
+                            ItemMeta helmMeta = helm.getItemMeta();
+                            helmMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
+                            helmMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
+                            helmMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                            helm.setItemMeta(helmMeta);
+
+                            ItemStack chestplate = new ItemStack (Material.NETHERITE_CHESTPLATE);
+                            ItemMeta chestMeta = chestplate.getItemMeta();
+                            chestMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
+                            chestMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
+                            chestMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                            chestplate.setItemMeta(chestMeta);
+
+                            ItemStack leg = new ItemStack (Material.NETHERITE_LEGGINGS);
+                            ItemMeta legMeta = leg.getItemMeta();
+                            legMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
+                            legMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
+                            legMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                            leg.setItemMeta(legMeta);
+
+                            ItemStack boot = new ItemStack (Material.NETHERITE_BOOTS);
+                            ItemMeta bootMeta = boot.getItemMeta();
+                            bootMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
+                            bootMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
+                            bootMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+                            boot.setItemMeta(bootMeta);
+
+                            ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
+                            ItemMeta swordMeta = sword.getItemMeta();
+                            swordMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
+                            swordMeta.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
+
+                            c.getBlockInventory().setItem(11, helm);
+                            c.getBlockInventory().setItem(12, chestplate);
+                            c.getBlockInventory().setItem(13, leg);
+                            c.getBlockInventory().setItem(14, boot);
+                            c.getBlockInventory().setItem(15, sword);
 
                             ARG.chestLoc = chest.getLocation();
                             ItemStack item = new ItemStack(Material.BOW);
                             ItemMeta meta = item.getItemMeta();
 
                             meta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
+                            meta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
                             item.setItemMeta(meta);
 
                             c.getBlockInventory().setItem(21, item);
