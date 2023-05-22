@@ -123,6 +123,7 @@ public class CommandManager implements CommandExecutor {
                             ItemMeta swordMeta = sword.getItemMeta();
                             swordMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
                             swordMeta.addEnchant(Enchantment.DAMAGE_ALL, 3, false);
+                            sword.setItemMeta(swordMeta);
 
                             c.getBlockInventory().setItem(11, helm);
                             c.getBlockInventory().setItem(12, chestplate);
