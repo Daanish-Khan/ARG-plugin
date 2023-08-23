@@ -1,12 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "uottawa-arg",
-  "private_key_id": "724fee6985fb2404528592cf0efaa353bafc7e02",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQCXo88okIsx1mDK\nfPLWo3HYzp4MTTJQ/r9zVm3zpHNhMlwK/wJDJUw3dNGMdsdyOPhUXfBYlA0m9/Xz\nRSNCXSIpl7l0DG7r9mc4csnmcGzrfSLCc/8GGppHnbeZgLhbv5hMlFBMa7/h0Qgu\nzi+SDf0PA2y3joMd6+00KhdXSP2GRXv668+zDnE3TS84ZzJgPXmHtFAFI8RCTGPV\nxtendHpA5etNDCpslvw0t5FMZ0mUHp2MzuzwsxE5cz3p0SnKiFH3jYaNfQMSeOFS\nVCLF4pQtyAmsvR0XFzkVP1CAfJdNY0tBIPKIU96pre8+Dzoae701HCbCNonIGAuD\nfJUcGBgjAgMBAAECggEAD1mLnMWU8YSL47NmOYft/E5d/UzLLRu8cYZsNt+MtmgM\nnShXKEjcQDjZBWj4o31U1eV0cOL7udgb03ZKLWuUC7XKFg80IzqcFEC6Y1M6E1Rl\ncl2fkRScTWePsEAxaUgpuIbC4hl+IPOx6lsAwb4cwapNFP+eEidRqZghKLrAvxid\noRPcuYpQr+Xsu5DzuOl/dVTqaDbieD/NI6zqYZCYsMXtOJuCJEP1md6u8hefkSru\njgwuaHwa/Mijb55Q/No//g1HjPOYEoylZcu0KrdgY5GrifeDcZ9OZM8sSmteR/A5\nLo+0hRBXwft3gMfW+ra7MsRr2FHfwCDdhrkpFMlv8QKBgQDIhGdLGoxjJxKrc/L8\n9BVS7OLHdrYpOESnRRYvUQBD2zlZT9QR3Jbl81eJy3zTQKPB6Unkx53aJbZtmEZ3\nTcg6bshlVaH7Evsf3/bTKB8Pei5+bop51LnIzyXyjKG7GZqowKmGOPRbb4gdI/e9\nkt99lR8QvqO8YPN26I24RjWYhQKBgQDBmTC1yAJ4e95W8k9YT/CRduqMmmsIR5ui\nMMFnLkiY0tt+rIovQvj936gVDpfRSeP8P1Bg94PBMRRnCZ8MglYrvkhZFhWlquBQ\ncNsJIunpEumcswFENYZD5FTAcpg6dq2Ag11zEnI8Ne7QAjEebZzKy+rs7TPe2Fbp\n+uqMVzcihwKBgHRTe6kyaadMD6Svy5O79nL5Qkb9M4iOQCXaCpjAoSq8j3Skvx7t\nng0hMvOZvXzAzz+7m0bCF21q236RDLBBy5s6kb9YAnSp+k3vnD271OkhtL9cWbF8\nG5vHsPgZZeopXHPx8WcQu5IgDhL5vsuX3Vf5nuAT+OFcTWH6X907vfQRAoGAD2M2\nrOwlzh/CT1TZG6LW8yjpgZ1wbmsKoryPUr0qBgOUcKAUJ6eCFOOm/212gasG1PDP\nWbWyojNddMcd/ieJ49Yu9+26cL2BMMOXlUVSJDVdnhfYPOyoLFNErTsugE8YgUNv\ntQq9S63ZumzCLLH3qWLF3GkKG2dEmTpZVChGeJcCfwaJfsheu20ZNHBrjNDc/rIh\ndfv3nDfWvZUeNbxuJzH7x/+9GG35w9KPlq9DW1a6RB8oir0KLnO4qnPW3zDwD2tI\n/Dh2ZQ+FQcwwGzrIUXsu0XE6reIfT2hEDokfp1WpF+0p87oYg7ijmoxKHwQ5dWfg\nwRdU+UqZSXUpafEYJkk=\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-u67m6@uottawa-arg.iam.gserviceaccount.com",
-  "client_id": "101298736522033488857",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-u67m6%40uottawa-arg.iam.gserviceaccount.com"
-}
+
